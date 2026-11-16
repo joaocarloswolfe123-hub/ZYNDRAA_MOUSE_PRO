@@ -4,7 +4,8 @@ name: Build ZYNDRA MOUSE PRO APK
 on:
   workflow_dispatch:
   push:
-    branches: [ main ]
+    branches:
+      - main
 
 permissions:
   contents: read
@@ -23,19 +24,18 @@ jobs:
           distribution: temurin
           java-version: '17'
 
-      - 
-- name: Configurar Android SDK
-  uses: android-actions/setup-android@v4
-  with:
-    packages: 'platform-tools'
+      - name: Configurar Android SDK
+        uses: android-actions/setup-android@v4
+        with:
+          packages: |
+            platform-tools
+            platforms;android-35
+            build-tools;35.0.0
 
       - name: Configurar Gradle
         uses: gradle/actions/setup-gradle@v4
         with:
           gradle-version: '8.9'
-
-      - name: Instalar Android SDK
-        run: sdkmanager "platforms;android-35" "build-tools;35.0.0"
 
       - name: Compilar APK
         run: gradle assembleDebug
@@ -45,3 +45,4 @@ jobs:
         with:
           name: ZYNDRA-MOUSE-PRO-debug
           path: app/build/outputs/apk/debug/app-debug.apk
+          
