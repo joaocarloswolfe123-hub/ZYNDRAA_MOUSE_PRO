@@ -109,7 +109,8 @@ public class MainActivity extends Activity {
         for (int id : InputDevice.getDeviceIds()) {
             InputDevice d = InputDevice.getDevice(id);
             if (d != null && !d.isVirtual()) {
-                card(d.getName(), "ID: " + id + " • " + InputDevice.getSourcesDescription(d.getSources()),
+                card(d.getName(), "ID: " + id + " • Fontes: 0x" + Integer.toHexString(d.getSources()),
+
                     () -> new AlertDialog.Builder(this).setMessage(d.toString()).setPositiveButton("OK", null).show());
             }
         }
